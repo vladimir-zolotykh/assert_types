@@ -17,9 +17,10 @@ def assert_types(*ty_args, **ty_kwargs):
             for name, value in bound_args.items():
                 if name not in bound_types:
                     continue
-                if not isinstance(value, bound_types[name]):
+                expected_type = bound_types[name]
+                if not isinstance(value, expected_type):
                     raise TypeError(
-                        f"{name!r} must be of type {bound_types[name].__name__!r}"
+                        f"{name!r} must be of type {expected_type.__name__!r}"
                     )
             return func(*args, **kwargs)
 
