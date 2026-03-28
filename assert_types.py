@@ -9,17 +9,17 @@ import pytest
 def assert_types(*ty_args, **ty_kwargs):
     def decorator(func):
         sig = inspect.signature(func)
-        bount_types = sig.bind_partial(*ty_args, **ty_kwargs).arguments
+        bound_types = sig.bind_partial(*ty_args, **ty_kwargs).arguments
 
         @wraps(func)
         def wrapper(*args, **kwargs):
             bound_args = sig.bind(*args, **kwargs).arguments
             for name, value in bound_args.items():
-                if name not in bount_types:
+                if name not in bound_types:
                     continue
-                if not isinstance(value, bount_types[name]):
+                if not isinstance(value, bound_types[name]):
                     raise TypeError(
-                        f"{name!r} must be of type {bount_types[name].__name__!r}"
+                        f"{name!r} must be of type {bound_types[name].__name__!r}"
                     )
             return func(*args, **kwargs)
 
