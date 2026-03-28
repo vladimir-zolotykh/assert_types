@@ -35,9 +35,13 @@ def create_greeting(name: str, age: int = 18, is_student: bool = False) -> str:
 
 def test_assert_types(capsys):
     print(create_greeting("Alice"))
-    print(create_greeting("Bob", 25, True))
-    print(create_greeting("Charlie", is_student=True))
     out = capsys.readouterr().out
     assert "Hello, Alice! You are 18 years old and you are not a student." in out
+
+    print(create_greeting("Bob", 25, True))
+    out = capsys.readouterr().out
     assert "Hello, Bob! You are 25 years old and you are a student." in out
+
+    print(create_greeting("Charlie", is_student=True))
+    out = capsys.readouterr().out
     assert "Hello, Charlie! You are 18 years old and you are a student." in out
