@@ -20,7 +20,8 @@ def assert_types(*ty_args, **ty_kwargs):
                 expected_type = bound_types[name]
                 if not isinstance(value, expected_type):
                     raise TypeError(
-                        f"{name!r} must be of type {expected_type.__name__!r}, got {type(value).__name__!r}"
+                        f"{name!r} must be of type {expected_type.__name__!r}, "
+                        f"got {type(value).__name__!r}"
                     )
             return func(*args, **kwargs)
 
