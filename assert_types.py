@@ -3,6 +3,7 @@
 # PYTHON_ARGCOMPLETE_OK
 from functools import wraps
 import inspect
+import pytest
 
 
 def assert_types(*ty_args, **ty_kwargs):
@@ -41,6 +42,9 @@ def test_assert_types(capsys):
     print(create_greeting("Bob", 25, True))
     out = capsys.readouterr().out
     assert "Hello, Bob! You are 25 years old and you are a student." in out
+
+    with pytest.raises(TypeError, match="'age' must be of type 'int'"):
+        print(create_greeting("Bob", 25.5, True))
 
     print(create_greeting("Charlie", is_student=True))
     out = capsys.readouterr().out
