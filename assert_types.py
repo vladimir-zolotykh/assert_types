@@ -20,7 +20,7 @@ def assert_types(*ty_args, **ty_kwargs):
                 expected_type = bound_types[name]
                 if not isinstance(value, expected_type):
                     raise TypeError(
-                        f"{name!r} must be of type {expected_type.__name__!r}"
+                        f"{name!r} must be of type {expected_type.__name__!r}, got {type(value).__name__!r}"
                     )
             return func(*args, **kwargs)
 
@@ -44,7 +44,7 @@ def test_assert_types(capsys):
     out = capsys.readouterr().out
     assert "Hello, Bob! You are 25 years old and you are a student." in out
 
-    with pytest.raises(TypeError, match="'age' must be of type 'int'"):
+    with pytest.raises(TypeError, match="^'age' must be of type 'int', got 'float'$"):
         print(create_greeting("Bob", 25.5, True))
 
     print(create_greeting("Charlie", is_student=True))
